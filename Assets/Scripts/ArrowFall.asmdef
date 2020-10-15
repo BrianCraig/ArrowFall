@@ -1,0 +1,17 @@
+{
+    "name": "ArrowFall",
+    "rootNamespace": "ArrowFall",
+    "references": [
+        "GUID:aec763590e305c74e9cafb3c5bd29c1b",
+        "GUID:30817c1a0e6d646d99c048fc403f5979"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
