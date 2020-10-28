@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NormalMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 0d6c13329b6551943a673eb52e282efc, type: 3}
+  m_Name: SkyboxStarsMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 17e669d90c8fdd341854ce6d19e079d8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

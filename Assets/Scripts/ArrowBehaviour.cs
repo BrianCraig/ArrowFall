@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Configuration;
-using Mirror;
+﻿using Mirror;
 using UnityEngine;
 
 namespace ArrowFall

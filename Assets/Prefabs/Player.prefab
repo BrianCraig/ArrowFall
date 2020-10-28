@@ -140,7 +140,7 @@ MonoBehaviour:
   arrowForce: 700
   arrowDistance: 0.5
   arrowPrefab: {fileID: 7293101706909159456, guid: f5dd64dcc7d9dd54bb3f6971b8aef605, type: 3}
-  arrows: 10
+  arrows: 50
   points: 0
 --- !u!114 &2278393507895060374
 MonoBehaviour:
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2592271709238556659, guid: 80422bc1068d6d24d85c52e646deccdb, type: 3}
-  size: 10
+  size: 20
 --- !u!114 &-4208751026139363773
 MonoBehaviour:
   m_ObjectHideFlags: 0
