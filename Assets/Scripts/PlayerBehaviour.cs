@@ -7,8 +7,7 @@ namespace ArrowFall
 {
     public class PlayerBehaviour : NetworkBehaviour
     {
-        public Transform transform;
-        public Rigidbody rigidbody;
+        public Rigidbody rigidbodyThis;
         public float movementSpeed = 0.2f;
         private float rotX = 0f, rotY = 0f;
         public float mouseSensitivity = 10f;
@@ -16,8 +15,15 @@ namespace ArrowFall
         public float arrowForce = 500f;
         public float arrowDistance = 1f;
         public GameObject arrowPrefab;
+        public bool canJump = true;
         [SyncVar] public int arrows = 3;
         [SyncVar] public int points = 0;
+        public bool canDash = true;
+
+        public AudioClip jumpSound, shotShound;
+        
+        private Vector3 _movementExpected = Vector3.zero;
+        private Vector3 _dashExpected = Vector3.zero;
 
         private void Start()
         {
@@ -41,18 +47,30 @@ namespace ArrowFall
                 rotY += Input.GetAxis("Mouse Y") * mouseSensitivity;
                 rotY = Mathf.Clamp(rotY, -89f, 89f);
                 transform.rotation = Quaternion.Euler(0f, rotX, 0f);
-                Camera.main.GetComponent<RotationConstraint>().rotationOffset = new Vector3(-rotY, 0f, 0f);
+                Camera cam = Camera.main;
+                cam.GetComponent<RotationConstraint>().rotationOffset = new Vector3(-rotY, 0f, 0f);
 
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    SpawnArrow(transform.position, Camera.main.transform.forward);
+                    SpawnArrow(transform.position, cam.transform.forward);
+                    AudioSource.PlayClipAtPoint(shotShound, transform.position, .2f);
                 }
 
-                if (Input.GetButtonDown("Jump"))
+                if (Input.GetButtonDown("Jump") && canJump)
                 {
-                    rigidbody.AddForce(Vector3.up * jumpForce);
+                    canJump = false;
+                    rigidbodyThis.AddForce(Vector3.up * jumpForce);
+                    AudioSource.PlayClipAtPoint(jumpSound, transform.position, .5f);
                 }
 
+                _movementExpected = transform.forward * (Input.GetAxis("Vertical") * movementSpeed) +
+                    transform.right * (Input.GetAxis("Horizontal") * movementSpeed);
+                
+                if (Input.GetButtonDown("Fire2") && canDash)
+                {
+                    canDash = false;
+                    _dashExpected = cam.transform.forward * 2f;
+                }
             }
         }
 
@@ -62,7 +80,7 @@ namespace ArrowFall
             if (arrows > 0)
             {
                 GameObject arrow = Instantiate(arrowPrefab, position + (forward * arrowDistance),
-                Quaternion.LookRotation(forward));
+                    Quaternion.LookRotation(forward));
                 ArrowBehaviour arrowBehaviour = arrow.GetComponent<ArrowBehaviour>();
                 arrow.GetComponent<Rigidbody>().AddForce(forward * arrowForce);
                 arrowBehaviour.player = this;
@@ -70,7 +88,6 @@ namespace ArrowFall
                 //RpcUseArrow();
                 arrows -= 1;
             }
-            
         }
 
 
@@ -78,19 +95,31 @@ namespace ArrowFall
         {
             if (isLocalPlayer)
             {
-                rigidbody.MovePosition(
-                    transform.position +
-                    transform.forward * (Input.GetAxis("Vertical") * movementSpeed) +
-                    transform.right * (Input.GetAxis("Horizontal") * movementSpeed)
+                rigidbodyThis.MovePosition(
+                    transform.position + _movementExpected + _dashExpected
                 );
+                _dashExpected = Vector3.zero;
             }
         }
-        
+
+        void OnCollisionEnter(Collision collision)
+        {
+            if (isLocalPlayer)
+            {
+                BlockBehaviour block = collision.collider.gameObject.GetComponent<BlockBehaviour>();
+                if (block)
+                {
+                    block.OnPlayerCollision(this, collision);
+                }
+            }
+        }
+
         [TargetRpc]
         protected internal void RpcFindArrow()
         {
             arrows += 1;
         }
+
         [TargetRpc]
         private void RpcUseArrow()
         {

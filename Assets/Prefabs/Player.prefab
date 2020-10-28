@@ -132,16 +132,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  transform: {fileID: 2592271709238556559}
-  rigidbody: {fileID: 2592271709238556555}
+  rigidbodyThis: {fileID: 2592271709238556555}
   movementSpeed: 0.1
   mouseSensitivity: 7
   jumpForce: 330
   arrowForce: 700
   arrowDistance: 0.5
   arrowPrefab: {fileID: 7293101706909159456, guid: f5dd64dcc7d9dd54bb3f6971b8aef605, type: 3}
+  canJump: 1
   arrows: 50
   points: 0
+  canDash: 1
+  jumpSound: {fileID: 8300000, guid: 6d08615fecfa1244fabd9fb3a62dbb2b, type: 3}
+  shotShound: {fileID: 8300000, guid: 78442ff46d6c23146994c2442ae5e441, type: 3}
 --- !u!114 &2278393507895060374
 MonoBehaviour:
   m_ObjectHideFlags: 0

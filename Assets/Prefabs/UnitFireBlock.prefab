@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 131197801413694092}
   - component: {fileID: 6183392755763687649}
   - component: {fileID: 1408671114110659085}
+  - component: {fileID: -6036145438311320134}
   m_Layer: 0
   m_Name: UnitFireBlock
   m_TagString: Untagged
@@ -107,5 +108,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d94a0b2b43943d1ac4fa62af182c7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6036145438311320134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794533319681707813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04b42fa5a3a9a4429ccc1170fe1f1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
